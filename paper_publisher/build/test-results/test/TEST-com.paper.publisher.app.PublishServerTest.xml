@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.paper.publisher.app.PublishServerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-03T20:54:14" hostname="DEVIN-PC" time="0.513">
+  <properties/>
+  <testcase name="publishPaperTest__Success()" classname="com.paper.publisher.app.PublishServerTest" time="0.513"/>
+  <system-out><![CDATA[14:54:13.497 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.paper.publisher.app.PublishServerTest]: PublishServerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:54:13.569 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.paper.publisher.app.AppApplication for test class com.paper.publisher.app.PublishServerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2024-05-03T14:54:13.838-06:00  INFO 28820 --- [app] [    Test worker] c.paper.publisher.app.PublishServerTest  : Starting PublishServerTest using Java 17.0.10 with PID 28820 (started by devin in D:\Raytheon Training\app)
+2024-05-03T14:54:13.839-06:00  INFO 28820 --- [app] [    Test worker] c.paper.publisher.app.PublishServerTest  : No active profile set, falling back to 1 default profile: "default"
+2024-05-03T14:54:14.624-06:00  INFO 28820 --- [app] [    Test worker] c.paper.publisher.app.PublishServerTest  : Started PublishServerTest in 0.93 seconds (process running for 1.758)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
