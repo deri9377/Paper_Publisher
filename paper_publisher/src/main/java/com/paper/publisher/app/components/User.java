@@ -2,6 +2,9 @@ package com.paper.publisher.app.components;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 public class User {
     
@@ -20,7 +23,8 @@ public class User {
         return this.Id;
     }
 
-    public User(String name) {
+    @JsonCreator
+    public User(@JsonProperty("name") String name) {
         this.name = name;   
         Id = UUID.randomUUID().toString();
     }

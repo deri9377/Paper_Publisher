@@ -26,8 +26,10 @@ public class UserService {
         return this.users;
     }
 
-    public void addUser(User user) {
-        users.add(user);
+    public User createUser(User user) {
+        User newUser = new User(user.getName());
+        users.add(newUser);
+        return newUser;
     }
 
     public Optional<User> getById(String id) {
@@ -38,5 +40,6 @@ public class UserService {
         }
         return null;
     }
+
 
 }
