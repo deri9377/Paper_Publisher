@@ -1,24 +1,40 @@
 package com.paper.publisher.app.controllers;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 
 import com.paper.publisher.app.components.Post;
+import com.paper.publisher.app.services.PostService;
 
-@Service
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+
+
+
+@Controller
 public class PublishController {
     
-    private Post post;
+    @Autowired
+    PostService postService;
 
-    public void publishPost() {
-        // TODO publish paper to the database
-        System.out.println(post.getPaper().getTitle() + " paper was published " + post.getPaper().getAuthor().getName());
+    @GetMapping("/posts")
+    public ResponseEntity<List<Post>> getPosts() {
+        return ResponseEntity.ok(postService.getPosts());
     }
 
-    public Post getPost() {
-        return this.post;
+    @GetMapping("/posts/{id}")
+    public ResponseEntity<Post> getPostById(@PathVariable String id) {
+        Post post = postService.getPostById(id);
+        return ResponseEntity.ok(post);
     }
-
-    public void setPost(Post post) {
-        this.post = post;
+    
+    @GetMapping("/posts/title/{title}")
+    public ResponseEntity<List<Post>> getPostByTitle(@PathVariable String title) {
+        return ResponseEntity.ok(postService.getPostByTitle(title));
     }
+    
 }
