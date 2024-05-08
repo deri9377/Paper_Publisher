@@ -3,12 +3,22 @@ package com.paper.publisher.app.components;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Post {
     
     private Paper paper;
     private User user;
     private String Id;
     private ArrayList<Comment> commnets;
+
+    @JsonCreator
+    public Post(@JsonProperty("paper") Paper paper, @JsonProperty("user") User user) {
+        this.paper = paper;
+        this.user = user;
+         Id = UUID.randomUUID().toString();
+    }
 
     public Paper getPaper() {
         return this.paper;
@@ -26,11 +36,6 @@ public class Post {
         this.commnets = commnets;
     }
 
-    public Post(Paper paper, User user) {
-        this.paper = paper;
-        this.user = user;
-         Id = UUID.randomUUID().toString();
-    }
 
     public String getId() {
         return Id;

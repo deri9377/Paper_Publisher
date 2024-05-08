@@ -21,11 +21,12 @@ public class PostService {
 
     private void populatePosts() {
         posts.add(new Post(new Paper(new User("Bobby Flay"), "The_Universe", "the_universe.txt"), new User("Bobby Flay")));
-        posts.add(new Post(new Paper(new User("Miley Cyrus"), "The_Universe", "the_universe.txt"), new User("Miley Cyrus")));
+        posts.add(new Post(new Paper(new User("Miley Cyrus"), "On_Tour", "On_Tour.txt"), new User("Miley Cyrus")));
     }
 
-    public void createPost(Post newPost) {
+    public Post createPost(Post newPost) {
         posts.add(newPost);
+        return newPost;
     }
 
     public List<Post> getPostsByUser(User user) {

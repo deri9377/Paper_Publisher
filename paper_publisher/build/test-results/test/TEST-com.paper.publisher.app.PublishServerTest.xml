@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.paper.publisher.app.PublishServerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-03T22:04:25" hostname="DEVIN-PC" time="0.003">
-  <properties/>
-  <testcase name="publishPaperTest__Success()" classname="com.paper.publisher.app.PublishServerTest" time="0.003"/>
-  <system-out><![CDATA[2024-05-03T16:04:25.635-06:00  INFO 29524 --- [app] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.paper.publisher.app.PublishServerTest]: PublishServerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-05-03T16:04:25.636-06:00  INFO 29524 --- [app] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.paper.publisher.app.AppApplication for test class com.paper.publisher.app.PublishServerTest
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

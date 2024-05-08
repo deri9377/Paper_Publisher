@@ -1,16 +1,22 @@
 package com.paper.publisher.app.controllers;
 
+import java.rmi.ServerException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.paper.publisher.app.components.Post;
 import com.paper.publisher.app.services.PostService;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 
 
 
@@ -29,12 +35,32 @@ public class PublishController {
     @GetMapping("/posts/{id}")
     public ResponseEntity<Post> getPostById(@PathVariable String id) {
         Post post = postService.getPostById(id);
-        return ResponseEntity.ok(post);
+        if (post != null) {
+            return ResponseEntity.ok(post);
+        } else {
+            return ResponseEntity.ofNullable(null);
+        }
     }
     
     @GetMapping("/posts/title/{title}")
     public ResponseEntity<List<Post>> getPostByTitle(@PathVariable String title) {
         return ResponseEntity.ok(postService.getPostByTitle(title));
     }
+
+    @PostMapping("/post")
+    public ResponseEntity<Post> createPost(@RequestBody Post newPost, HttpServletRequest request) throws ServerException {
+        
+        Post post = postService.createPost(newPost);
+        if (post != null) {
+            URI location = ServletUriComponentsBuilder.fromRequestUri()
+                    .path("/{id}")
+                    .buildAndExpand(post.getId())
+                    .toUri();
+            return ResponseEntity.created(location).body(post);
+        } else {
+            throw new ServerException("Error in creating the Post resourse. Try again.");
+        }
+    }
+    
     
 }

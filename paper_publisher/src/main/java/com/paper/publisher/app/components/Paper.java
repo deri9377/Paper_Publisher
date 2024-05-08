@@ -1,5 +1,7 @@
 package com.paper.publisher.app.components;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Paper {
 
@@ -7,7 +9,8 @@ public class Paper {
     private String title;
     private String filename;
 
-    public Paper(User author, String title, String filename) {
+    @JsonCreator
+    public Paper(@JsonProperty("user") User author, @JsonProperty("title") String title, @JsonProperty("filename") String filename) {
         this.author = author;
         this.title = title;
         this.filename = filename;
