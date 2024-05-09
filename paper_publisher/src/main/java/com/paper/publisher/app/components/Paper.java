@@ -48,6 +48,10 @@ public class Paper {
         this.filename = filename;
     }
 
+    public boolean equals(Paper paper) {
+        return id.equals(paper.getId());
+    }   
+
     
 }
 

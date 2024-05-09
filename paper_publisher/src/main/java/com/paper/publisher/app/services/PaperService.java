@@ -57,10 +57,14 @@ public class PaperService {
         return papersByUser;
     }
 
-    public Paper createPost(Paper newPaper) {
+    public Paper createPaper(Paper newPaper) {
         Paper paper = new Paper(newPaper.getAuthor(), newPaper.getTitle() , newPaper.getFilename());
         papers.add(paper);
         return paper;
+    }
+
+    public void removePaper(Paper paper) {
+        papers.remove(paper);
     }
     
 }

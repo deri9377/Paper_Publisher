@@ -42,7 +42,7 @@ public class PostService {
         return postsByUser;
     }
 
-    public List<Post> getPostByTitle(String title) {
+    public List<Post> getPostsByTitle(String title) {
         List<Post> postsByTitle = new ArrayList<>();
         for (Post post: posts) {
             if (post.getPaper().getTitle().equals(title)) {
@@ -69,6 +69,10 @@ public class PostService {
         post.addComment(comment);
         return post;
 
+    }
+
+    public void removePost(Post post) {
+        posts.remove(post);
     }
 
 }

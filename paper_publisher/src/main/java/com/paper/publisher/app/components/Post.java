@@ -10,7 +10,7 @@ public class Post {
     
     private Paper paper;
     private User user;
-    private String Id;
+    private String id;
     private ArrayList<Comment> comments;
 
     @JsonCreator
@@ -18,7 +18,7 @@ public class Post {
         this.paper = paper;
         this.user = user;
         this.comments = new ArrayList<>();
-         Id = UUID.randomUUID().toString();
+         id = UUID.randomUUID().toString();
     }
 
     public Paper getPaper() {
@@ -39,7 +39,7 @@ public class Post {
 
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public User getUser() {
@@ -50,6 +50,9 @@ public class Post {
         comments.add(comment);
     }
 
+    public boolean equals(Post post) {
+        return id.equals(post.getId());
+    }
 
     
 }   

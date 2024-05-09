@@ -24,7 +24,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 
 @Controller
-public class PublishController {
+public class PostController {
     
     @Autowired
     PostService postService;
@@ -46,7 +46,7 @@ public class PublishController {
     
     @GetMapping("/posts/title/{title}")
     public ResponseEntity<List<Post>> getPostByTitle(@PathVariable String title) {
-        return ResponseEntity.ok(postService.getPostByTitle(title));
+        return ResponseEntity.ok(postService.getPostsByTitle(title));
     }
 
     @PostMapping("/posts")

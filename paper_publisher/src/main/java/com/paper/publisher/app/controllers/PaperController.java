@@ -55,7 +55,7 @@ public class PaperController {
     @PostMapping(value="papers")
     public ResponseEntity<Paper> createPost(@RequestBody Paper newPaper, HttpServletRequest request) throws ServerException {
         
-        Paper paper = paperService.createPost(newPaper);
+        Paper paper = paperService.createPaper(newPaper);
         if (paper != null) {
             URI location = ServletUriComponentsBuilder.fromRequestUri(request)
                     .path("/{id}")
