@@ -1,5 +1,6 @@
 package com.paper.publisher.app.controllers;
 
+import java.net.URI;
 import java.rmi.ServerException;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import com.paper.publisher.app.services.PostService;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -52,7 +54,7 @@ public class PublishController {
         
         Post post = postService.createPost(newPost);
         if (post != null) {
-            URI location = ServletUriComponentsBuilder.fromRequestUri()
+            URI location = ServletUriComponentsBuilder.fromRequestUri(request)
                     .path("/{id}")
                     .buildAndExpand(post.getId())
                     .toUri();

@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class User {
     
     private String name;
-    private String Id;
+    private final String id;
 
     public String getName() {
         return this.name;
@@ -20,13 +20,13 @@ public class User {
     }
 
     public String getId() {
-        return this.Id;
+        return this.id;
     }
 
     @JsonCreator
     public User(@JsonProperty("name") String name) {
         this.name = name;   
-        Id = UUID.randomUUID().toString();
+        id = UUID.randomUUID().toString();
     }
 
     
