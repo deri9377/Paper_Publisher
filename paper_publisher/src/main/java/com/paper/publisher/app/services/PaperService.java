@@ -37,7 +37,7 @@ public class PaperService {
         return null;
     }
 
-    public List<Paper> getPaperByTitle(String title) {
+    public List<Paper> getPapersByTitle(String title) {
         List<Paper> papersWithTitle = new ArrayList<>();
         for (Paper paper: papers) {
             if (paper.getTitle().equals(title)) {
@@ -47,7 +47,7 @@ public class PaperService {
         return papersWithTitle;
     }
 
-    public List<Paper> getPaperByUser(String id) {
+    public List<Paper> getPapersByUser(String id) {
         List<Paper> papersByUser = new ArrayList<>();
         for (Paper paper: papers) {
             if (paper.getAuthor().getId().equals(id)) {

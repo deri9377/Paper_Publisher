@@ -45,6 +45,7 @@ public class UserControllerTest {
       this.mockMvc = webAppContextSetup(webApplicationContext).build();
     }
 
+
     @Test
     void getUserById() throws Exception {
 
@@ -67,11 +68,7 @@ public class UserControllerTest {
         
         User user = new User("Bobby Flay");
 
-        when(userServiceMock.getUsers()).thenReturn(new ArrayList<User>(){
-            {
-                add(user);
-            }
-        });
+        when(userServiceMock.getUsers()).thenReturn(new ArrayList<User>(){{add(user);}});
 
         mockMvc.perform(MockMvcRequestBuilders
   			    .get("/users")
@@ -86,7 +83,9 @@ public class UserControllerTest {
 
     @Test
     void createNewUser() throws Exception {
+        
         User user = new User("Bobby Flay");
+        
         when(userServiceMock.createUser(any(User.class))).thenReturn(user);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/user")

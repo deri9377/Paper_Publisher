@@ -44,7 +44,7 @@ public class PaperServiceTest {
         paperService.createPaper(new Paper(user, "Flavor Town", "flaver_town.txt"));
         paperService.createPaper(new Paper(user, "Baha Blaset" , "baha_blast.txt"));
 
-        assertTrue(paperService.getPaperByUser(user.getId()).size() == 2);
+        assertTrue(paperService.getPapersByUser(user.getId()).size() == 2);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class PaperServiceTest {
         paperService.createPaper(new Paper(user, "Flavor Town", "flaver_town.txt"));
         paperService.createPaper(new Paper(user, "Flavor Town" , "baha_blast.txt"));
 
-        assertTrue(paperService.getPaperByTitle("Flavor Town").size() == 2);
+        assertTrue(paperService.getPapersByTitle("Flavor Town").size() == 2);
     }
 
     @Test
