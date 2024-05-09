@@ -2,7 +2,6 @@ package com.paper.publisher.app.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -14,11 +13,7 @@ public class UserService {
     private List<User> users;
 
     public UserService() {
-        users = new ArrayList<User>() {{
-            add(new User("Bobby Flay"));
-            add(new User("Bill Cosby"));
-            add(new User("Miley Cyrus"));
-        }};
+        users = new ArrayList<>();
     }
 
 
@@ -32,13 +27,17 @@ public class UserService {
         return newUser;
     }
 
-    public Optional<User> getById(String id) {
+    public User getById(String id) {
         for (User user : users) {
             if (user.getId().equals(id)) {
-                return Optional.ofNullable(user);
+                return user;
             }
         }
         return null;
+    }
+
+    public void removeUser(User user) {
+        users.remove(user);
     }
 
 

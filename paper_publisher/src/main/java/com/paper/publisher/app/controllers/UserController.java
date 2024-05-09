@@ -35,9 +35,12 @@ public class UserController {
     
     @GetMapping(value = "/users/{id}")
     public ResponseEntity<User> getById(@PathVariable String id) {
-        Optional<User> user = userService.getById(id);
-        return user.map(ResponseEntity::ok)
-      	    .orElseThrow();
+        User user = userService.getById(id);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.ofNullable(null);
+        }
     }
 
     @PostMapping(value = "/users")

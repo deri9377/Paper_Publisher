@@ -29,5 +29,10 @@ public class User {
         id = UUID.randomUUID().toString();
     }
 
+    public boolean equals(User user) {
+        return name.equals(user.getName())  && id.equals(user.getId());
+          
+    }
+
     
 }
