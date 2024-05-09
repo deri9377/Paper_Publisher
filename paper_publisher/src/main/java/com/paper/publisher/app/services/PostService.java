@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.paper.publisher.app.components.Comment;
 import com.paper.publisher.app.components.Paper;
 import com.paper.publisher.app.components.Post;
 import com.paper.publisher.app.components.User;
@@ -25,8 +26,9 @@ public class PostService {
     }
 
     public Post createPost(Post newPost) {
-        posts.add(newPost);
-        return newPost;
+        Post post = new Post(newPost.getPaper(), newPost.getUser());
+        posts.add(post);
+        return post;
     }
 
     public List<Post> getPostsByUser(User user) {
@@ -37,7 +39,7 @@ public class PostService {
                 postsByUser.add(post);
             }
         }
-        return posts;
+        return postsByUser;
     }
 
     public List<Post> getPostByTitle(String title) {
@@ -61,6 +63,12 @@ public class PostService {
 
     public List<Post> getPosts() {
         return posts;
+    }
+
+    public Post addComment(Post post, Comment comment) {
+        post.addComment(comment);
+        return post;
+
     }
 
 }

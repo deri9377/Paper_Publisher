@@ -11,12 +11,13 @@ public class Post {
     private Paper paper;
     private User user;
     private String Id;
-    private ArrayList<Comment> commnets;
+    private ArrayList<Comment> comments;
 
     @JsonCreator
     public Post(@JsonProperty("paper") Paper paper, @JsonProperty("user") User user) {
         this.paper = paper;
         this.user = user;
+        this.comments = new ArrayList<>();
          Id = UUID.randomUUID().toString();
     }
 
@@ -29,11 +30,11 @@ public class Post {
     }
 
     public ArrayList<Comment> getCommnets() {
-        return this.commnets;
+        return this.comments;
     }
 
     public void setCommnets(ArrayList<Comment> commnets) {
-        this.commnets = commnets;
+        this.comments = commnets;
     }
 
 
@@ -43,6 +44,10 @@ public class Post {
 
     public User getUser() {
         return user;
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
     }
 
 

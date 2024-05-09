@@ -9,13 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import com.paper.publisher.app.components.Post;
-import com.paper.publisher.app.services.PostService;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.paper.publisher.app.components.Comment;
+import com.paper.publisher.app.components.Post;
+import com.paper.publisher.app.services.PostService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -49,7 +49,7 @@ public class PublishController {
         return ResponseEntity.ok(postService.getPostByTitle(title));
     }
 
-    @PostMapping("/post")
+    @PostMapping("/posts")
     public ResponseEntity<Post> createPost(@RequestBody Post newPost, HttpServletRequest request) throws ServerException {
         
         Post post = postService.createPost(newPost);
@@ -64,5 +64,19 @@ public class PublishController {
         }
     }
     
+    @PostMapping("/posts/{id}")
+    public ResponseEntity<Post> postMethodName(@PathVariable String id, @RequestBody Comment comment, HttpServletRequest request) throws ServerException {
+        
+        Post post = postService.addComment(postService.getPostById(id), comment);
+        if (post != null) {
+            URI location = ServletUriComponentsBuilder.fromRequestUri(request)
+                    .path("/{id}/comment")
+                    .buildAndExpand(post.getId())
+                    .toUri();
+            return ResponseEntity.created(location).body(post);
+        } else {
+            throw new ServerException("Error in adding the comment to the Post. Try again.");
+        }
+    }
     
 }

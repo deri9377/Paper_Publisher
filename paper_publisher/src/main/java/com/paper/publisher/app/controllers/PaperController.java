@@ -51,6 +51,7 @@ public class PaperController {
         return ResponseEntity.ok(paperService.getPaperByUser(id));
     }
 
+
     @PostMapping(value="papers")
     public ResponseEntity<Paper> createPost(@RequestBody Paper newPaper, HttpServletRequest request) throws ServerException {
         

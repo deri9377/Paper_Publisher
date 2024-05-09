@@ -1,13 +1,17 @@
 package com.paper.publisher.app.components;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Comment {
 
     private User user;
-    private String text;
+    private String message;
 
-    public Comment(User user, String text) {
+    @JsonCreator
+    public Comment(@JsonProperty("user") User user,@JsonProperty("message") String message) {
         this.user = user;
-        this.text = text;
+        this.message = message;
     }
 
 
@@ -20,11 +24,11 @@ public class Comment {
     }
 
     public String getText() {
-        return this.text;
+        return this.message;
     }
 
     public void setText(String text) {
-        this.text = text;
+        this.message = text;
     }
     
     
