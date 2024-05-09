@@ -153,5 +153,4 @@ public class PaperControllerTest {
             .andExpect(MockMvcResultMatchers.jsonPath("$.title").value(paper.getTitle()))
             .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(paper.getId()));
     }
-
 }
