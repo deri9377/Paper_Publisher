@@ -27,7 +27,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class PostController {
     
     @Autowired
-    PostService postService;
+    private PostService postService;
 
     @GetMapping("/posts")
     public ResponseEntity<List<Post>> getPosts() {
