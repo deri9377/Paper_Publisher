@@ -6,19 +6,37 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "Post")
 public class Post {
     
+    @OneToOne
     private Paper paper;
+    @ManyToOne
+    @JoinColumn(name="user_id")
     private User user;
+    @Id
     private String id;
+    @OneToMany(mappedBy="post")
     private ArrayList<Comment> comments;
+
+    public Post() {
+        id = UUID.randomUUID().toString();
+    }
 
     @JsonCreator
     public Post(@JsonProperty("paper") Paper paper, @JsonProperty("user") User user) {
         this.paper = paper;
         this.user = user;
-        this.comments = new ArrayList<>();
-         id = UUID.randomUUID().toString();
+        id = UUID.randomUUID().toString();
     }
 
     public Paper getPaper() {
@@ -33,7 +51,7 @@ public class Post {
         return this.comments;
     }
 
-    public void setCommnets(ArrayList<Comment> comments) {
+    public void setComments(ArrayList<Comment> comments) {
         this.comments = comments;
     }
 
@@ -44,10 +62,6 @@ public class Post {
 
     public User getUser() {
         return user;
-    }
-
-    public void addComment(Comment comment) {
-        comments.add(comment);
     }
 
     public boolean equals(Post post) {

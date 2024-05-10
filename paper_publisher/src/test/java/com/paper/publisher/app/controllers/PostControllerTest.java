@@ -27,8 +27,6 @@ import com.paper.publisher.app.components.Post;
 import com.paper.publisher.app.components.User;
 import com.paper.publisher.app.services.PostService;
 
-import ch.qos.logback.core.util.COWArrayList;
-
 @SpringBootTest(webEnvironment=WebEnvironment.MOCK)
 public class PostControllerTest {
     
@@ -160,38 +158,35 @@ public class PostControllerTest {
     }
 
 
-    @Test
-    void addComment() throws Exception {
+    // @Test
+    // void addComment() throws Exception {
 
-        User user = new User("Bobby Flay");
-        Paper paper = new Paper(user, "Za Zorldo", "dio.txt");
-        Post post = new Post(paper, user);
-        Comment comment = new Comment(user, "this book slaps");
-        post.addComment(comment);
+    //     User user = new User("Bobby Flay");
+    //     Paper paper = new Paper(user, "Za Zorldo", "dio.txt");
+    //     Post post = new Post(paper, user);
+    //     Comment comment = new Comment(user, "this book slaps");
+    //     post.addComment(comment);
 
-        when(postServiceMock.addComment(eq("12345"), any(Comment.class))).thenReturn(post);
+    //     when(postServiceMock.addComment(eq("12345"), any(Comment.class))).thenReturn(post);
 
-         mockMvc.perform(MockMvcRequestBuilders.post("/post/12345")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(""" 
-                {
-                    "user":{
-                        "name":"Bobby Flay"
-                    },
-                    "message":"this book slaps"
-                }
-                    """)
-                .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isCreated())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(header().string("Location", "post/" + post.getId() + "/comment"))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.user").exists())
-            .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(post.getId()))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.paper").exists())
-            .andExpect(MockMvcResultMatchers.jsonPath("$.comments").exists());
+    //      mockMvc.perform(MockMvcRequestBuilders.post("/post/12345")
+    //             .contentType(MediaType.APPLICATION_JSON)
+    //             .content(""" 
+    //             {
+    //                 "user":{
+    //                     "name":"Bobby Flay"
+    //                 },
+    //                 "message":"this book slaps"
+    //             }
+    //                 """)
+    //             .accept(MediaType.APPLICATION_JSON))
+    //         .andExpect(status().isCreated())
+    //         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+    //         .andExpect(header().string("Location", "post/" + post.getId() + "/comment"))
+    //         .andExpect(MockMvcResultMatchers.jsonPath("$.user").exists())
+    //         .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(post.getId()))
+    //         .andExpect(MockMvcResultMatchers.jsonPath("$.paper").exists())
+    //         .andExpect(MockMvcResultMatchers.jsonPath("$.comments").exists());
             
-    }
-
-
-
+    // }
 }

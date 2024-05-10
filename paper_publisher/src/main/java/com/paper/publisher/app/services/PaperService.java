@@ -2,44 +2,39 @@ package com.paper.publisher.app.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.paper.publisher.app.components.Paper;
-import com.paper.publisher.app.components.User;
+import com.paper.publisher.app.repository.PaperRepository;
 
 @Service
 public class PaperService {
     
-    private ArrayList<Paper> papers;
 
-    public PaperService() {
-        papers = new ArrayList<>();
-        generatePapers();
-    }
-
-    private void generatePapers() {
-        papers.add(new Paper(new User("Bobby Flay"), "The_Universe", "the_universe.txt"));
-        papers.add(new Paper(new User("Miley Cyrus"), "On_Tour", "On_Tour.txt"));
+    @Autowired
+    private PaperRepository paperRepository;
     
-    }
-    
-    public ArrayList<Paper> getAllPapers() {
+    public List<Paper> getAllPapers() {
+        List<Paper> papers = new ArrayList<>();
+        paperRepository.findAll().forEach(papers::add);
         return papers;
     }
 
     public Paper getPaperById(String id) {
-        for (Paper paper: papers) {
-            if (paper.getId().equals(id)) {
-                return paper;
-            }
+
+        Optional<Paper> paper = paperRepository.findById(id);
+        if (paper.isEmpty()) {
+            return null;
         }
-        return null;
+        return paper.get();
     }
 
     public List<Paper> getPapersByTitle(String title) {
         List<Paper> papersWithTitle = new ArrayList<>();
-        for (Paper paper: papers) {
+        for (Paper paper: getAllPapers()) {
             if (paper.getTitle().equals(title)) {
                 papersWithTitle.add(paper);
             }
@@ -49,22 +44,20 @@ public class PaperService {
 
     public List<Paper> getPapersByUser(String id) {
         List<Paper> papersByUser = new ArrayList<>();
-        for (Paper paper: papers) {
-            if (paper.getAuthor().getId().equals(id)) {
+        for (Paper paper: getAllPapers()) {
+            if (paper.getUser().getId().equals(id)) {
                 papersByUser.add(paper);
             }
         }
         return papersByUser;
     }
 
-    public Paper createPaper(Paper newPaper) {
-        Paper paper = new Paper(newPaper.getAuthor(), newPaper.getTitle() , newPaper.getFilename());
-        papers.add(paper);
-        return paper;
+    public Paper createPaper(Paper paper) {
+        return paperRepository.save(paper);
     }
 
-    public void removePaper(Paper paper) {
-        papers.remove(paper);
+    public void removePaper(String id) {
+        paperRepository.deleteById(id);
     }
     
 }

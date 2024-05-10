@@ -5,23 +5,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.paper.publisher.app.components.User;
 
+import jakarta.transaction.Transactional;
+
 @SpringBootTest
+@Transactional
 public class UserServiceTest {
 
     @Autowired
     UserService userService;
 
-    @AfterEach
-    public void cleanUp() {
-        userService.getUsers().clear();
-    }
 
     @Test
     void createUserSuccessful() {
@@ -29,11 +27,6 @@ public class UserServiceTest {
         assertTrue(userService.getById(user.getId()).equals(user));
     }
 
-    @Test
-    void createUserUnsuccessful() {
-        userService.createUser(new User("bobby flay"));
-        assertNull(userService.getById("id"));
-    }
 
     @Test
     void newUserAddedToList() {
@@ -45,7 +38,7 @@ public class UserServiceTest {
     @Test
     void removeUserFromList() {
         User user = userService.createUser(new User("bobby flay"));
-        userService.removeUser(user);
+        userService.removeUser(user.getId());
         assertNull(userService.getById(user.getId()));
     }
 

@@ -3,7 +3,6 @@ package com.paper.publisher.app.services;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,20 +10,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.paper.publisher.app.components.Paper;
 import com.paper.publisher.app.components.User;
 
+import jakarta.transaction.Transactional;
+
 @SpringBootTest
+@Transactional
 public class PaperServiceTest {
     
     @Autowired
     PaperService paperService;
 
-    @BeforeEach
-    public void cleanUp() {
-        paperService.getAllPapers().clear();
-    }
+    @Autowired
+    UserService userService;
+
 
     @Test
     void createPaper() {
-        User user = new User("bobby flay");
+        User user = userService.createUser(new User("bobby flay"));
         Paper paper = paperService.createPaper(new Paper(user, "Flavor Town", "flaver_town.txt"));
 
         assertTrue(paper.equals(paperService.getPaperById(paper.getId())));
@@ -32,7 +33,7 @@ public class PaperServiceTest {
 
     @Test
     void newPaperAddedToList() {
-        User user = new User("bobby flay");
+        User user = userService.createUser(new User("bobby flay"));
         Paper paper = paperService.createPaper(new Paper(user, "Flavor Town", "flaver_town.txt"));
 
         assertTrue(paper.equals(paperService.getAllPapers().get(0)));
@@ -40,7 +41,7 @@ public class PaperServiceTest {
 
     @Test
     void getPapersByUser() {
-        User user = new User("bobby flay");
+        User user = userService.createUser(new User("bobby flay"));
         paperService.createPaper(new Paper(user, "Flavor Town", "flaver_town.txt"));
         paperService.createPaper(new Paper(user, "Baha Blaset" , "baha_blast.txt"));
 
@@ -49,18 +50,18 @@ public class PaperServiceTest {
 
     @Test
     void getPapersByTitle() {
-        User user = new User("bobby flay");
+        User user = userService.createUser(new User("bobby flay"));
         paperService.createPaper(new Paper(user, "Flavor Town", "flaver_town.txt"));
-        paperService.createPaper(new Paper(user, "Flavor Town" , "baha_blast.txt"));
+        paperService.createPaper(new Paper(user, "The Universe" , "baha_blast.txt"));
 
-        assertTrue(paperService.getPapersByTitle("Flavor Town").size() == 2);
+        assertTrue(paperService.getPapersByTitle("Flavor Town").size() == 1);
     }
 
     @Test
     void removePaperFromList() {
-        User user = new User("bobby flay");
+        User user = userService.createUser(new User("bobby flay"));
         Paper paper = paperService.createPaper(new Paper(user, "Flavor Town", "flaver_town.txt"));
-        paperService.removePaper(paper);
+        paperService.removePaper(paper.getId());
 
         assertNull(paperService.getPaperById(paper.getId()));
     }

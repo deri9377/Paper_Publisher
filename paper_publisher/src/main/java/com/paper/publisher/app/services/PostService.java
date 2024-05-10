@@ -2,38 +2,28 @@ package com.paper.publisher.app.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.paper.publisher.app.components.Comment;
-import com.paper.publisher.app.components.Paper;
 import com.paper.publisher.app.components.Post;
-import com.paper.publisher.app.components.User;
+import com.paper.publisher.app.repository.PostRepository;
 
 @Service
 public class PostService {
     
-    private List<Post> posts;
+    @Autowired
+    private PostRepository postRepository;
 
-    public PostService() {
-        posts = new ArrayList<>();
-        populatePosts();
-    }
-
-    private void populatePosts() {
-        posts.add(new Post(new Paper(new User("Bobby Flay"), "The_Universe", "the_universe.txt"), new User("Bobby Flay")));
-        posts.add(new Post(new Paper(new User("Miley Cyrus"), "On_Tour", "On_Tour.txt"), new User("Miley Cyrus")));
-    }
-
-    public Post createPost(Post newPost) {
-        Post post = new Post(newPost.getPaper(), newPost.getUser());
-        posts.add(post);
-        return post;
+    public Post createPost(Post post) {
+       return postRepository.save(post);
     }
 
     public List<Post> getPostsByUser(String id) {
         List<Post> postsByUser = new ArrayList<>();
-        for (Post post : posts) {
+        for (Post post : postRepository.findAll()) {
             if (post.getUser().getId().equals(id)) {
                 postsByUser.add(post);
             }
@@ -43,7 +33,7 @@ public class PostService {
 
     public List<Post> getPostsByTitle(String title) {
         List<Post> postsByTitle = new ArrayList<>();
-        for (Post post: posts) {
+        for (Post post: postRepository.findAll()) {
             if (post.getPaper().getTitle().equals(title)) {
                 postsByTitle.add(post);
             }
@@ -51,28 +41,30 @@ public class PostService {
         return postsByTitle;
     }
 
-    public Post getPostById(String Id) {
-        for (Post post: posts) {
-            if (post.getId().equals(Id)) {
-                return post;
-            }
+    public Post getPostById(String id) {
+        Optional<Post> post = postRepository.findById(id);
+        if (post.isEmpty()) {
+            return null;
         }
-        return null;
+        return post.get();
     }
 
     public List<Post> getPosts() {
+        List<Post> posts = new ArrayList<>();
+        for (Post post: postRepository.findAll()) {
+            posts.add(post);
+        }
         return posts;
     }
 
     public Post addComment(String id, Comment comment) {
         Post post = getPostById(id);
-        post.addComment(comment);
         return post;
 
     }
 
-    public void removePost(Post post) {
-        posts.remove(post);
+    public void removePost(String id) {
+        postRepository.deleteById(id);
     }
 
 }

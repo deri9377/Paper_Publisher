@@ -2,42 +2,40 @@ package com.paper.publisher.app.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.paper.publisher.app.components.User;
+import com.paper.publisher.app.repository.UserRepository;
 
 @Service
 public class UserService {
 
-    private List<User> users;
-
-    public UserService() {
-        users = new ArrayList<>();
-    }
-
+    @Autowired
+    private UserRepository userRepository;
 
     public List<User> getUsers() {
-        return this.users;
+        List<User> users = new ArrayList<>();
+        userRepository.findAll().forEach(users::add);
+        return users;
     }
 
     public User createUser(User user) {
-        User newUser = new User(user.getName());
-        users.add(newUser);
-        return newUser;
+        return userRepository.save(user);
     }
 
     public User getById(String id) {
-        for (User user : users) {
-            if (user.getId().equals(id)) {
-                return user;
-            }
+        Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()) {
+            return null;
         }
-        return null;
+       return userRepository.findById(id).get();
     }
 
-    public void removeUser(User user) {
-        users.remove(user);
+    public void removeUser(String id) {
+        userRepository.deleteById(id);
     }
 
 
