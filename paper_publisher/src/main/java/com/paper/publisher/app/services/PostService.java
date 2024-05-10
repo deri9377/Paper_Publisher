@@ -31,8 +31,7 @@ public class PostService {
         return post;
     }
 
-    public List<Post> getPostsByUser(User user) {
-        String id = user.getId();
+    public List<Post> getPostsByUser(String id) {
         List<Post> postsByUser = new ArrayList<>();
         for (Post post : posts) {
             if (post.getUser().getId().equals(id)) {
@@ -65,7 +64,8 @@ public class PostService {
         return posts;
     }
 
-    public Post addComment(Post post, Comment comment) {
+    public Post addComment(String id, Comment comment) {
+        Post post = getPostById(id);
         post.addComment(comment);
         return post;
 

@@ -3,7 +3,6 @@ package com.paper.publisher.app.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,7 @@ public class PostServiceTest {
         postService.createPost(new Post(paper, user));
         postService.createPost(new Post(paper, user));
 
-        assertTrue(postService.getPostsByUser(user).size() == 2);
+        assertTrue(postService.getPostsByUser(user.getId()).size() == 2);
     }
 
     @Test
@@ -70,9 +69,9 @@ public class PostServiceTest {
         User user = new User("bobby flay");
         Paper paper = new Paper(user, "Flavor Town", "flaver_town.txt");
         Post post = postService.createPost(new Post(paper, user));
-        post = postService.addComment(post, new Comment(user, "This is the wost paper ive ever read"));
+        post = postService.addComment(post.getId(), new Comment(user, "This is the wost paper ive ever read"));
         
-        assertTrue(post.getCommnets().size() == 1);
+        assertTrue(post.getComments().size() == 1);
     }
 
     @Test

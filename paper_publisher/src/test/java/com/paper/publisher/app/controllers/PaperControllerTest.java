@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -33,7 +31,7 @@ import com.paper.publisher.app.services.PaperService;
 @SpringBootTest(webEnvironment=WebEnvironment.MOCK)
 public class PaperControllerTest {
     
-     private MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -145,10 +143,10 @@ public class PaperControllerTest {
                     }
                     """)
                 .accept(MediaType.APPLICATION_JSON))
-           .andExpect(status().isCreated())
-           .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-           .andExpect(header().string("Location", "paper/" + paper.getId()))
-           .andExpect(MockMvcResultMatchers.jsonPath("$.user.name").value(user.getName()))
+            .andExpect(status().isCreated())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(header().string("Location", "paper/" + paper.getId()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.user.name").value(user.getName()))
             .andExpect(MockMvcResultMatchers.jsonPath("$.user.id").value(user.getId()))
             .andExpect(MockMvcResultMatchers.jsonPath("$.title").value(paper.getTitle()))
             .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(paper.getId()));

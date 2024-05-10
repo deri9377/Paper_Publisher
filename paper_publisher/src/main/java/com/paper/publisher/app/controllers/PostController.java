@@ -34,7 +34,7 @@ public class PostController {
         return ResponseEntity.ok(postService.getPosts());
     }
 
-    @GetMapping("/posts/{id}")
+    @GetMapping("/post/{id}")
     public ResponseEntity<Post> getPostById(@PathVariable String id) {
         Post post = postService.getPostById(id);
         if (post != null) {
@@ -45,38 +45,37 @@ public class PostController {
     }
     
     @GetMapping("/posts/title/{title}")
-    public ResponseEntity<List<Post>> getPostByTitle(@PathVariable String title) {
+    public ResponseEntity<List<Post>> getPostsByTitle(@PathVariable String title) {
         return ResponseEntity.ok(postService.getPostsByTitle(title));
     }
 
-    @PostMapping("/posts")
+    @GetMapping("/posts/user/{id}")
+    public ResponseEntity<List<Post>> getPostsByUser(@PathVariable String id) {
+        return ResponseEntity.ok(postService.getPostsByUser(id));
+    }
+
+    @PostMapping("/post")
     public ResponseEntity<Post> createPost(@RequestBody Post newPost, HttpServletRequest request) throws ServerException {
         
         Post post = postService.createPost(newPost);
-        if (post != null) {
-            URI location = ServletUriComponentsBuilder.fromRequestUri(request)
-                    .path("/{id}")
-                    .buildAndExpand(post.getId())
-                    .toUri();
-            return ResponseEntity.created(location).body(post);
-        } else {
-            throw new ServerException("Error in creating the Post resourse. Try again.");
-        }
+        URI location = ServletUriComponentsBuilder.fromPath("post")
+                .path("/{id}")
+                .buildAndExpand(post.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(post);
     }
     
-    @PostMapping("/posts/{id}")
-    public ResponseEntity<Post> postMethodName(@PathVariable String id, @RequestBody Comment comment, HttpServletRequest request) throws ServerException {
+    @PostMapping("/post/{id}")
+    public ResponseEntity<Post> addComment(@PathVariable String id, @RequestBody Comment comment, HttpServletRequest request) throws ServerException {
         
-        Post post = postService.addComment(postService.getPostById(id), comment);
-        if (post != null) {
-            URI location = ServletUriComponentsBuilder.fromRequestUri(request)
-                    .path("/{id}/comment")
-                    .buildAndExpand(post.getId())
-                    .toUri();
-            return ResponseEntity.created(location).body(post);
-        } else {
-            throw new ServerException("Error in adding the comment to the Post. Try again.");
-        }
+        Post post = postService.addComment(id, comment);
+        URI location = ServletUriComponentsBuilder.fromPath("post")
+                .path("/{id}/comment")
+                .buildAndExpand(post.getId())
+                .toUri();
+        
+        return ResponseEntity.created(location).body(post);
     }
     
 }

@@ -29,12 +29,12 @@ public class Post {
         this.paper = paper;
     }
 
-    public ArrayList<Comment> getCommnets() {
+    public ArrayList<Comment> getComments() {
         return this.comments;
     }
 
-    public void setCommnets(ArrayList<Comment> commnets) {
-        this.comments = commnets;
+    public void setCommnets(ArrayList<Comment> comments) {
+        this.comments = comments;
     }
 
 
