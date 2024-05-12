@@ -1,6 +1,7 @@
 package com.paper.publisher.app.components;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -25,8 +26,9 @@ public class Post {
     private User user;
     @Id
     private String id;
-    @OneToMany(mappedBy="post")
-    private ArrayList<Comment> comments;
+    @OneToMany
+	@JoinColumn(name = "post_id",referencedColumnName = "id")
+    private List<Comment> comments;
 
     public Post() {
         id = UUID.randomUUID().toString();
@@ -47,12 +49,16 @@ public class Post {
         this.paper = paper;
     }
 
-    public ArrayList<Comment> getComments() {
+    public List<Comment> getComments() {
         return this.comments;
     }
 
-    public void setComments(ArrayList<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
     }
 
 

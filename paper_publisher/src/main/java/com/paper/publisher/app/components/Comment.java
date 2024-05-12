@@ -2,6 +2,7 @@ package com.paper.publisher.app.components;
 
 import java.util.UUID;
 
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -21,16 +22,14 @@ public class Comment {
     private String message;
     @Id
     private String id;
-    @ManyToOne
-    @JoinColumn(name="post_id", nullable=false)
-    private Post post;
+    private String post_id;
 
     public Comment() {
         this.id = UUID.randomUUID().toString();
     }
 
     @JsonCreator
-    public Comment(@JsonProperty("user") User user,@JsonProperty("message") String message) {
+    public Comment(@JsonProperty("user") User user, @JsonProperty("message") String message) {
         this.user = user;
         this.message = message;
         this.id = UUID.randomUUID().toString();
@@ -57,12 +56,15 @@ public class Comment {
         this.message = text;
     }
 
-    public Post getPost() {
-        return this.post;
+    public String getPostId() {
+        return this.post_id;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setPostId(String post_id) {
+        this.post_id = post_id;
     }
     
+    public boolean equals(Comment comment) {
+        return this.id.equals(comment.getId());
+    }
 }

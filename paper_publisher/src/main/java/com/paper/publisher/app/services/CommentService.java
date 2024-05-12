@@ -40,7 +40,18 @@ public class CommentService {
         return comments;
     }
 
-    public Comment createComment(Comment comment) {
+    public List<Comment> getCommentsByPost(String id) {
+        List<Comment> comments = new ArrayList<>();
+        for (Comment comment:getComments()) {
+            if (comment.getPostId().equals(id)) {
+                comments.add(comment);
+            }
+        }
+        return comments;
+    }
+
+    public Comment createComment(Comment comment, String post_id) {
+        comment.setPostId(post_id);
         return commentRepository.save(comment);
     }
 }

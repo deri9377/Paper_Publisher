@@ -25,7 +25,7 @@ public class CommentController {
     private CommentService commentService;
 
     @GetMapping(value = "/comments")
-    public ResponseEntity<List<Comment>> getUsers() {
+    public ResponseEntity<List<Comment>> getComments() {
         return ResponseEntity.ok(commentService.getComments());
     }
 
@@ -40,13 +40,24 @@ public class CommentController {
         }
     }
 
-    @PostMapping(value = "/comment")
-    public ResponseEntity<Comment> createUser(@RequestBody Comment newComment, HttpServletRequest request) throws ServerException {
-        
-        Comment comment = commentService.createComment(newComment);
+    @GetMapping(value = "/user/{id}/comments")
+    public ResponseEntity<List<Comment>> getCommentsByUser(@PathVariable String id) {
+        return ResponseEntity.ok(commentService.getCommentsByUser(id));
+    }
 
-        URI location = ServletUriComponentsBuilder.fromPath("comment")
-                .path("/{id}")
+
+    @GetMapping(value = "/post/{id}/comments")
+    public ResponseEntity<List<Comment>> getCommentsByPost(@PathVariable String id) {
+        return ResponseEntity.ok(commentService.getCommentsByPost(id));
+    }
+
+    @PostMapping(value = "/post/{id}/comment")
+    public ResponseEntity<Comment> createUser(@RequestBody Comment newComment, @PathVariable String id, HttpServletRequest request) throws ServerException {
+        
+        Comment comment = commentService.createComment(newComment, id);
+
+        URI location = ServletUriComponentsBuilder.fromPath("/post/" + id)
+                .path("/comment/{id}")
                 .buildAndExpand(comment.getId())
                 .toUri();
                 

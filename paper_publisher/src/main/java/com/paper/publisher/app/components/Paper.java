@@ -15,13 +15,14 @@ import jakarta.persistence.Table;
 @Table(name = "Paper")
 public class Paper {
 
+    @Id
+    private final String id;
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
     private String title;
     private String filename;
-    @Id
-    private final String id;
+    
 
     public Paper() {
         this.id = UUID.randomUUID().toString();

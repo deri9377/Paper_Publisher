@@ -3,11 +3,13 @@ package com.paper.publisher.app.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.paper.publisher.app.components.Comment;
 import com.paper.publisher.app.components.Paper;
 import com.paper.publisher.app.components.Post;
 import com.paper.publisher.app.components.User;
@@ -27,7 +29,7 @@ public class PostServiceTest {
 
     @Autowired
     PaperService paperService;
-
+    
 
     @Test
     void createNewPost() {
