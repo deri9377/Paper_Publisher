@@ -1,3 +1,4 @@
+
 package com.paper.publisher.app;
 
 import org.springframework.boot.SpringApplication;

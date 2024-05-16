@@ -56,7 +56,7 @@ public class PaperService {
         return paperRepository.save(paper);
     }
 
-    public void removePaper(String id) {
+    public void deletePaper(String id) {
         paperRepository.deleteById(id);
     }
     

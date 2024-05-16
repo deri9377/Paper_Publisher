@@ -63,7 +63,7 @@ public class PostService {
 
     }
 
-    public void removePost(String id) {
+    public void deletePost(String id) {
         postRepository.deleteById(id);
     }
 

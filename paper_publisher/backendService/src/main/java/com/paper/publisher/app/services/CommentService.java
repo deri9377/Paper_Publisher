@@ -54,4 +54,8 @@ public class CommentService {
         comment.setPostId(post_id);
         return commentRepository.save(comment);
     }
+
+    public void deleteComment(String id) {
+        commentRepository.deleteById(id);
+    }
 }

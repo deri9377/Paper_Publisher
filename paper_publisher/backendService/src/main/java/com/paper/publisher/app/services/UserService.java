@@ -26,6 +26,15 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User getByName(String name) {
+        for (User user: userRepository.findAll()) {
+            if (user.getName().equals(name)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
     public User getById(String id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()) {
@@ -34,7 +43,7 @@ public class UserService {
        return userRepository.findById(id).get();
     }
 
-    public void removeUser(String id) {
+    public void deleteUser(String id) {
         userRepository.deleteById(id);
     }
 
