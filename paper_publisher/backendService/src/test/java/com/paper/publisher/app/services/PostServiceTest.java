@@ -92,7 +92,7 @@ public class PostServiceTest {
         User user = userService.createUser(new User("bobby flay"));
         Paper paper = paperService.createPaper(new Paper(user, "Flavor Town", "flaver_town.txt"));
         Post post = postService.createPost(new Post(paper, user));
-        postService.removePost(post.getId());
+        postService.deletePost(post.getId());
 
         assertNull(postService.getPostById(post.getId()));
     }

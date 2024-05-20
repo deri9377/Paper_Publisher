@@ -40,13 +40,13 @@ function Login() {
 };
 
   const handleLoginSubmit = (e) => {
-    navigate('/users')
-    // const { name, value } = e.target;
-    // setLoginData(prevState => ({
-    //   ...prevState,
-    //   [name]: value,
-    // }));
-    // getUserByName(loginData.username)
+    const { name, value } = e.target;
+    setLoginData(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
+    getUserByName(loginData.username)
+    localStorage.setItem('user', loginData.username)
   }
 
   const handleUserCreateSubmit = (e) => {

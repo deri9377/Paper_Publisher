@@ -19,6 +19,7 @@ const Header = () => {
                 <Nav.Item>
                     <Nav.Link href={PathConstants.LOGIN}>Login</Nav.Link>
                 </Nav.Item>
+                {localStorage.getItem("user")}
             </Nav>
         </header>
     )

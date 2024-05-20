@@ -5,7 +5,7 @@ import Stack from 'react-bootstrap/Stack'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import Form from 'react-bootstrap/Form'
-import { Button, ListGroup } from "react-bootstrap";
+import { Button, FormControl, ListGroup } from "react-bootstrap";
 import {useSelector} from 'react-redux'
 import { useResolvedPath } from "react-router-dom";
 
@@ -52,14 +52,21 @@ const Post = () => {
 
     <div className="app">
         <h1>Posts</h1>
-        <div className="users-container">
+        <div className="users-container" >
         <Stack>
         {posts.map((post) => {
             return (
               <Accordion key={post.id}>
                 <Accordion.Item eventKey="0">
-                  <Accordion.Header>{post.paper.title}</Accordion.Header>
+                  <Accordion.Header>
+                    {post.paper.title}
+                    <br/>
+                    Posted By: {post.user.name}
+                  </Accordion.Header>
                   <Accordion.Body>
+                  <div style={{overflowWrap:"break-word", width:"1100px"}}>
+                    {post.paper.file}
+                  </div>
                     <ListGroup>
                         {AllCollapse(post.id, post.comments)}
                     </ListGroup>

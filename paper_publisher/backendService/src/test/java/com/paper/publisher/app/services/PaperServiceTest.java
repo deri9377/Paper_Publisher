@@ -61,7 +61,7 @@ public class PaperServiceTest {
     void removePaperFromList() {
         User user = userService.createUser(new User("bobby flay"));
         Paper paper = paperService.createPaper(new Paper(user, "Flavor Town", "flaver_town.txt"));
-        paperService.removePaper(paper.getId());
+        paperService.deletePaper(paper.getId());
 
         assertNull(paperService.getPaperById(paper.getId()));
     }

@@ -4,10 +4,11 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+ 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -21,7 +22,8 @@ public class Paper {
     @JoinColumn(name="user_id")
     private User user;
     private String title;
-    private String filename;
+    @Lob
+    private String file;
     
 
     public Paper() {
@@ -32,7 +34,7 @@ public class Paper {
     public Paper(@JsonProperty("user") User author, @JsonProperty("title") String title, @JsonProperty("filename") String filename) {
         this.user = author;
         this.title = title;
-        this.filename = filename;
+        this.file = filename;
         this.id = UUID.randomUUID().toString();
     }
 
@@ -56,12 +58,12 @@ public class Paper {
         this.title = title;
     }
 
-    public String getFilename() {
-        return this.filename;
+    public String getFile() {
+        return this.file;
     }
 
-    public void setFilename(String filename) {
-        this.filename = filename;
+    public void setFile(String filename) {
+        this.file = filename;
     }
 
     public boolean equals(Paper paper) {

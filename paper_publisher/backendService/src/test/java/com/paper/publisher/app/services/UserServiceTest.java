@@ -38,7 +38,7 @@ public class UserServiceTest {
     @Test
     void removeUserFromList() {
         User user = userService.createUser(new User("bobby flay"));
-        userService.removeUser(user.getId());
+        userService.deleteUser(user.getId());
         assertNull(userService.getById(user.getId()));
     }
 
