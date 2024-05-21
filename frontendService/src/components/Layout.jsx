@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export default function Layout() {
     return (
         <>
-            <Header />
+            <Header loggedIn={localStorage.getItem('loggedIn')} user={localStorage.getItem('user')}/>
             <main>                
                 <Outlet />
             </main>

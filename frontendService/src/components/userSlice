@@ -15,6 +15,7 @@ export const userSlice = createSlice({
       // Also, no return statement is required from these functions.
       state.name = name;
       state.id = id;
+      state.login = false;
     },
   },
 })

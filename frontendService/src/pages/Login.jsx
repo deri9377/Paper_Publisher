@@ -15,7 +15,12 @@ import { useSelector, useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 
 
-function Login() {
+const Login = (props) => {
+
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [password, setPassword] = useState('')
+  const [username, setUserName] = useState('')
+
   const count = useSelector((state) => state.user.name)
   const dispatch = useDispatch()
   const navigate = useNavigate();
@@ -39,14 +44,11 @@ function Login() {
     dispatch(setUser(response.data.name, response.data.id))
 };
 
-  const handleLoginSubmit = (e) => {
-    const { name, value } = e.target;
-    setLoginData(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
-    getUserByName(loginData.username)
-    localStorage.setItem('user', loginData.username)
+  const handleLoginSubmit = () => {
+    localStorage.setItem('user', username)
+    localStorage.setItem('loggedIn', true);
+    setLoggedIn(true)
+    setUserName(username);
   }
 
   const handleUserCreateSubmit = (e) => {
@@ -71,14 +73,23 @@ function Login() {
         <Form>
           <Form.Group className="mb-3" controlId="formBasicUser">
             <Form.Label>Username</Form.Label>
-            <Form.Control name='username' type="text" placeholder="Username" value={FormData.username} onSubmit={handleLoginSubmit}/>
+            <Form.Control name='username' 
+                type="text" 
+                placeholder="Username" 
+                value={FormData.username} 
+                onChange={(ev) => setUserName(ev.target.value)}/>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control name='password' type="password" placeholder="Password" value={FormData.password} onSubmit={handleLoginSubmit}/>
+            <Form.Control 
+              name='password' 
+              type="password" 
+              placeholder="Password" 
+              value={FormData.password} 
+              onChange={(ev) => setPassword(ev.target.password)}/>
           </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" onClick={handleLoginSubmit}>
           Submit
         </Button>
     </Form>

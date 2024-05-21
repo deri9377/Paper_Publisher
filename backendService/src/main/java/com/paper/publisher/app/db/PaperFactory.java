@@ -33,8 +33,8 @@ public class PaperFactory {
     }
 
     public void createPapers() {
-        insertPaper("D:\\Raytheon Training\\Paper_Publisher\\paper_publisher\\backendService\\src\\main\\java\\com\\paper\\publisher\\app\\db\\PineapplePizza.txt", "b7825d87-568f-46f8-ac70-8c4bce5feb59");
-        insertPaper("D:\\Raytheon Training\\Paper_Publisher\\paper_publisher\\backendService\\src\\main\\java\\com\\paper\\publisher\\app\\db\\TheUniverse.txt", "a0ee4ae1-8895-4581-9a07-3dcc64698bf9");
-        insertPaper("D:\\Raytheon Training\\Paper_Publisher\\paper_publisher\\backendService\\src\\main\\java\\com\\paper\\publisher\\app\\db\\TheOdyssey.txt", "111c36e2-f750-4bfa-b206-f8ff0944444c");
+        insertPaper("D:\\Raytheon Training\\Paper_Publisher\\backendService\\src\\main\\java\\com\\paper\\publisher\\app\\db\\PineapplePizza.txt", "b7825d87-568f-46f8-ac70-8c4bce5feb59");
+        insertPaper("D:\\Raytheon Training\\Paper_Publisher\\backendService\\src\\main\\java\\com\\paper\\publisher\\app\\db\\TheUniverse.txt", "a0ee4ae1-8895-4581-9a07-3dcc64698bf9");
+        insertPaper("D:\\Raytheon Training\\Paper_Publisher\\backendService\\src\\main\\java\\com\\paper\\publisher\\app\\db\\TheOdyssey.txt", "111c36e2-f750-4bfa-b206-f8ff0944444c");
     }
 }

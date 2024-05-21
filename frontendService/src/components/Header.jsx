@@ -2,7 +2,7 @@ import PathConstants from "../routes/pathConstants";
 import Nav from 'react-bootstrap/Nav'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Header = () => {
+const Header = (props) => {
 
     return (
         <header>
@@ -17,9 +17,8 @@ const Header = () => {
                     <Nav.Link href={PathConstants.POSTS}>Posts</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href={PathConstants.LOGIN}>Login</Nav.Link>
+                    {props.loggedIn? <Nav.Link href={PathConstants.PROFILE}>logged in as {props.user}</Nav.Link> : <Nav.Link href={PathConstants.LOGIN}>Login</Nav.Link>}
                 </Nav.Item>
-                {localStorage.getItem("user")}
             </Nav>
         </header>
     )
