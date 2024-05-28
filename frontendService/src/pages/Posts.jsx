@@ -8,6 +8,7 @@ import Form from 'react-bootstrap/Form'
 import { Button, FormControl, ListGroup } from "react-bootstrap";
 import {useSelector} from 'react-redux'
 import { useResolvedPath } from "react-router-dom";
+import PathConstants from "../routes/pathConstants";
 
 const Post = () => {
     const [posts, setPosts] = useState([]);
@@ -15,37 +16,32 @@ const Post = () => {
         postId:'',
         message: ''
     });
-    const userName = useSelector((state) => state.user.name)
-    const userId = useSelector((state) => state.user.id)
-    console.log("UserName: " + userName)
-    console.log("UserID: " + userId)
+    const user = localStorage.getItem('user');
+    const userId = localStorage.getItem('userId')
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const response = await client.get('http://localhost:8080/posts');
+            const response = await client.get(PathConstants.SERVER + '/posts');
             setPosts(response.data);
         };
         fetchPosts();   
     }, []);
 
-    const postComment = (e) => {
-      const {name, value} = e.target;
-      setCommentMessage(prevState => ({
-        ...prevState,
-        [name]:value
-      }));
-      sendPost()
-    }
-
-    const sendPost = async () => {
-      let response = await client.post('http://localhost:8080/post/' + commentMessage.postId + '/comment', {
+    const sendComment = async () => {
+      let response = await client.post(PathConstants.SERVER + 'post/' + commentMessage.postId + '/comment', {
         user: {
-          name: userName,
+          name: user,
           id: userId
         },
         message: commentMessage.message
       })
       console.log(response.data)
+    }
+
+    const changeHandler = (event) => {
+      const name = event.target.name;
+      const value = event.target.value;
+      setCommentMessage(values => ({...values, [name]: value}))
     }
 
   return (
@@ -57,7 +53,7 @@ const Post = () => {
         {posts.map((post) => {
             return (
               <Accordion key={post.id}>
-                <Accordion.Item eventKey="0">
+                <Accordion.Item eventKey="0" value={post.id}>
                   <Accordion.Header>
                     {post.paper.title}
                     <br/>
@@ -70,10 +66,9 @@ const Post = () => {
                     <ListGroup>
                         {AllCollapse(post.id, post.comments)}
                     </ListGroup>
-                    <Form>
-                      <Form.Control type="hidden" value={post.id}/>
-                      <Form.Control type="text" placeholder="New Comment" name="message" value={FormData.message} onSubmit={postComment} />
-                      <Button variant="primary" type="submit">Add Comment</Button>
+                    <Form type="submit" onSubmit={sendComment}>
+                      <Form.Control type="text" placeholder="New Comment" name="message" value={FormData.message} onChange={changeHandler} />
+                      <Button variant="primary" name="postId" value={post.id} type="submit" onClick={changeHandler}>Add Comment</Button>
                     </Form>
                   </Accordion.Body>
                 </Accordion.Item>

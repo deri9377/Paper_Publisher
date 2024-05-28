@@ -33,7 +33,7 @@ public class UserController {
     }
 
     
-    @GetMapping(value = "/users/{id}")
+    @GetMapping(value = "/user/{id}")
     public ResponseEntity<User> getById(@PathVariable String id) {
         User user = userService.getById(id);
         if (user != null) {
@@ -43,7 +43,7 @@ public class UserController {
         }
     }
 
-    @GetMapping(value = "/user/{name}")
+    @GetMapping(value = "/user/name/{name}")
     public ResponseEntity<User> getByName(@PathVariable String name) {
         User user = userService.getByName(name);
         if (user != null) {

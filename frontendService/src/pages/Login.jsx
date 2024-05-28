@@ -17,20 +17,11 @@ import {useNavigate} from 'react-router-dom';
 
 const Login = (props) => {
 
-  const [loggedIn, setLoggedIn] = useState(false)
   const [password, setPassword] = useState('')
   const [username, setUserName] = useState('')
 
-  const count = useSelector((state) => state.user.name)
-  const dispatch = useDispatch()
   const navigate = useNavigate();
 
-
-
-  const [loginData, setLoginData] = useState({
-    username: '',
-    password: '',
-  });
 
   const [createUserData, setCreateUserData] = useState({
     fullname: '',
@@ -40,15 +31,14 @@ const Login = (props) => {
 
 
   const getUserByName = async (name) => {
-    let response = await client.get("http://localhost:8080/user/" + name);
-    dispatch(setUser(response.data.name, response.data.id))
+    let response = await client.get("http://localhost:8080/user/name/" + name);
+    localStorage.setItem('userId', response.data.id)
 };
 
   const handleLoginSubmit = () => {
-    localStorage.setItem('user', username)
+    localStorage.setItem('user', username);
     localStorage.setItem('loggedIn', true);
-    setLoggedIn(true)
-    setUserName(username);
+    getUserByName(username);
   }
 
   const handleUserCreateSubmit = (e) => {

@@ -22,5 +22,3 @@ insert into Comment (id, post_id, user_id, message)
 
 insert into Comment (id, post_id, user_id, message)
     values ('c7c6dcd2-4b91-462a-a04c-7536b1108642', 'e0398d33-307c-4b38-94e3-dc98246cf79d', 'c47d8956-52fc-4929-93f3-67ecb2d0a36b', 'never thought about that before');
-
-

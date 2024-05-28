@@ -14,6 +14,7 @@ const Home = () => {
         if (loggedIn) {
             localStorage.removeItem('loggedIn')
             localStorage.removeItem('user')
+            localStorage.removeItem('userId')
             window.location.reload();
             navigate('/')
         } else {

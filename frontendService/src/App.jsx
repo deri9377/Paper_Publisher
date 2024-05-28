@@ -4,6 +4,7 @@ import User from './pages/User.jsx'
 import Post from './pages/Posts.jsx'
 import Login from './pages/Login.jsx'
 import Profile from './pages/Profile.jsx'
+import Upload from './pages/Upload.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from "./components/Layout.jsx"
 import { useState, useEffect } from "react";
@@ -36,6 +37,10 @@ function App() {
         {
           path: '/profile',
           element: <Profile/>
+        },
+        {
+          path: '/upload',
+          element: <Upload/>
         }
       ],
     }

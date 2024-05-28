@@ -1,6 +1,10 @@
 package com.paper.publisher.app.components;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
+
+import org.apache.commons.io.FileUtils;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -31,10 +35,16 @@ public class Paper {
     }
     
     @JsonCreator
-    public Paper(@JsonProperty("user") User author, @JsonProperty("title") String title, @JsonProperty("filename") String filename) {
+    public Paper(@JsonProperty("user") User author, @JsonProperty("title") String title, @JsonProperty("file") File file) {
         this.user = author;
         this.title = title;
-        this.file = filename;
+        try {
+            this.file = FileUtils.readFileToString(file, "UTF-8");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
         this.id = UUID.randomUUID().toString();
     }
 
@@ -62,8 +72,8 @@ public class Paper {
         return this.file;
     }
 
-    public void setFile(String filename) {
-        this.file = filename;
+    public void setFile(String file) {
+        this.file = file;
     }
 
     public boolean equals(Paper paper) {

@@ -11,7 +11,7 @@ const Header = (props) => {
                     <Nav.Link href={PathConstants.HOME}>Home</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href={PathConstants.USERS}>Users</Nav.Link>
+                    <Nav.Link href={PathConstants.UPLOAD}>Upload</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Nav.Link href={PathConstants.POSTS}>Posts</Nav.Link>
