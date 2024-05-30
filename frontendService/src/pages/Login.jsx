@@ -30,9 +30,16 @@ const Login = (props) => {
     password: ''
   });
 
+  const createNewUser = async (name) => {
+    let response = await client.post(PathConstants.SERVER + '/user', {
+      name:name
+    })
+    console.log(response.data)
+  }
 
   const getUserByName = async (name) => {
     let response = await client.get(PathConstants.SERVER + '/user/name/' + name);
+    //console.log(response.data)
     localStorage.setItem('userId', response.data.id)
 };
 
@@ -43,14 +50,9 @@ const Login = (props) => {
     navigate('/profile')
   }
 
-  const handleUserCreateSubmit = (e) => {
-    const { name, value } = e.target;
-    setCreateUserData(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
-    getUserByName(createUserData.username)
-    navigate('/users')
+  const handleUserCreateSubmit = () => {
+    createNewUser(username)
+    navigate('/login')
   }
 
 
@@ -87,18 +89,18 @@ const Login = (props) => {
     </Form>
       </Tab>
       <Tab eventKey="create user" title="Create User">
-      <Form>
+      <Form onSubmit={handleUserCreateSubmit}>
           <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Label>Name</Form.Label>
-            <Form.Control type="text" placeholder="Name" name="name" value={FormData.fullname} onSubmit={handleUserCreateSubmit}/>
+            <Form.Control type="text" placeholder="Name" name="name" value={FormData.fullname}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicUser">
             <Form.Label>Username</Form.Label>
-            <Form.Control type="text" placeholder="Username" name='username'  value={FormData.username} onSubmit={handleUserCreateSubmit}/>
+            <Form.Control type="text" placeholder="Username" name='username'  value={FormData.username} onChange={(ev) => setUserName(ev.target.value)}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" name='password' value={FormData.password} onSubmit={handleUserCreateSubmit}/>
+            <Form.Control type="password" placeholder="Password" name='password' value={FormData.password} onChange={(ev) => setPassword(ev.target.password)}/>
           </Form.Group>
         <Button variant="primary" type="submit">
           Submit
