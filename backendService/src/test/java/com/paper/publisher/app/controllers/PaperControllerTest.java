@@ -73,7 +73,7 @@ public class PaperControllerTest {
 
         when(paperServiceMock.getPaperById("12345")).thenReturn(paper);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/papers/12345")
+        mockMvc.perform(MockMvcRequestBuilders.get("/paper/12345")
                 .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(MockMvcResultMatchers.jsonPath("$.user.name").value(user.getName()))

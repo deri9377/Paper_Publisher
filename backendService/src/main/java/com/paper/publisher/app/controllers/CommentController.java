@@ -16,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.paper.publisher.app.components.Comment;
 import com.paper.publisher.app.services.CommentService;
+import com.paper.publisher.app.services.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -24,6 +25,9 @@ public class CommentController {
     
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    UserService userService;
 
 
     @GetMapping(value = "/comments")
@@ -63,7 +67,7 @@ public class CommentController {
                 .buildAndExpand(comment.getId())
                 .toUri();
         
-        System.out.println("Comment created: " + newComment.getUser().getName());
+        System.out.println("Comment created: " + comment.getMessage());
         return ResponseEntity.created(location).body(comment);
     }
 

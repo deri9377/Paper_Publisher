@@ -2,7 +2,6 @@ package com.paper.publisher.app.components;
 
 import java.util.UUID;
 
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -63,6 +62,27 @@ public class Comment {
     public void setPostId(String post_id) {
         this.post_id = post_id;
     }
+
+
+    public String getMessage() {
+        return this.message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPost_id() {
+        return this.post_id;
+    }
+
+    public void setPost_id(String post_id) {
+        this.post_id = post_id;
+    }
+    
     
     public boolean equals(Comment comment) {
         return this.id.equals(comment.getId());

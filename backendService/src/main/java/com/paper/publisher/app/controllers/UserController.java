@@ -47,6 +47,7 @@ public class UserController {
     public ResponseEntity<User> getByName(@PathVariable String name) {
         User user = userService.getByName(name);
         if (user != null) {
+            System.out.println("Getting User: " + user.getName() + ", " + user.getId());
             return ResponseEntity.ok(user);
         } else {
             return ResponseEntity.ofNullable(null);
@@ -63,6 +64,8 @@ public class UserController {
                 .path("/{id}")
                 .buildAndExpand(user.getId())
                 .toUri();
+
+        System.out.println("User created: " + user.getName());
                 
         return ResponseEntity.created(location).body(user);
     }

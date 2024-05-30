@@ -16,9 +16,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.paper.publisher.app.components.Paper;
 import com.paper.publisher.app.services.PaperService;
+import com.paper.publisher.app.services.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -29,12 +29,15 @@ public class PaperController {
     @Autowired
     PaperService paperService;
 
-    @GetMapping(value="papers")
+    @Autowired
+    UserService userService;
+
+    @GetMapping(value="/papers")
     public ResponseEntity<List<Paper>> getPapers() {
         return ResponseEntity.ok(paperService.getAllPapers());
     }
 
-    @GetMapping(value="papers/{id}")
+    @GetMapping(value="/paper/{id}")
     public ResponseEntity<Paper> getPaperById(@PathVariable String id) {
         Paper paper = paperService.getPaperById(id);
         if (paper != null) {
@@ -44,18 +47,18 @@ public class PaperController {
         }
     }
 
-    @GetMapping(value="papers/title/{title}")
+    @GetMapping(value="/papers/title/{title}")
     public ResponseEntity<List<Paper>> getPapersByTitle(@PathVariable String title) {
         return ResponseEntity.ok(paperService.getPapersByTitle(title));
     }
 
-    @GetMapping(value="papers/user/{id}")
+    @GetMapping(value="/papers/user/{id}")
     public ResponseEntity<List<Paper>> getPapersByUser(@PathVariable String id) {
         return ResponseEntity.ok(paperService.getPapersByUser(id));
     }
 
 
-    @PostMapping(value="paper")
+    @PostMapping(value="/paper")
     public ResponseEntity<Paper> createPaper(@RequestBody Paper newPaper, HttpServletRequest request) throws ServerException {
         
         Paper paper = paperService.createPaper(newPaper);
@@ -64,6 +67,9 @@ public class PaperController {
                 .path("/{id}")
                 .buildAndExpand(paper.getId())
                 .toUri();
+
+        System.out.println("Paper Created: " + paper.getTitle());
+
         return ResponseEntity.created(location).body(paper);
     }
     

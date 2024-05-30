@@ -17,6 +17,7 @@ const Profile = () => {
 
 
     useEffect(() => {
+        console.log("Use effect")
         const fetchPosts = async () => {
             const response = await client.get(PathConstants.SERVER + '/posts/user/' + userId);
             setPosts(response.data);
@@ -33,7 +34,7 @@ const Profile = () => {
     async function getPostById(id) {
         let response = await client.get(PathConstants.SERVER + '/post/' + id)
         console.log(response.data.paper.title)
-        return <div>{response.data.paper.title}</div>
+        return response.data.paper.title
     }
 
     return (
@@ -66,9 +67,6 @@ const Profile = () => {
             {comments.map((comment) => {
                 return(
                     <div key={comment.id}>
-                        <div>
-                            {getPostById(comment.postId)}
-                        </div>
                         Comment Text: {comment.text}
                         <br/>
                     </div>

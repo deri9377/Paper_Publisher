@@ -1,14 +1,11 @@
 package com.paper.publisher.app.components;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.UUID;
-
-import org.apache.commons.io.FileUtils;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
- 
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -22,7 +19,7 @@ public class Paper {
 
     @Id
     private final String id;
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="user_id")
     private User user;
     private String title;
@@ -35,15 +32,10 @@ public class Paper {
     }
     
     @JsonCreator
-    public Paper(@JsonProperty("user") User author, @JsonProperty("title") String title, @JsonProperty("file") File file) {
+    public Paper(@JsonProperty("user") User author, @JsonProperty("title") String title, @JsonProperty("file") String file) {
         this.user = author;
         this.title = title;
-        try {
-            this.file = FileUtils.readFileToString(file, "UTF-8");
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        this.file = file;
         
         this.id = UUID.randomUUID().toString();
     }

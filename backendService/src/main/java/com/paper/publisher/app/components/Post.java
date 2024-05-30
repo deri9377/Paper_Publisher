@@ -41,6 +41,13 @@ public class Post {
         id = UUID.randomUUID().toString();
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Paper getPaper() {
         return this.paper;
     }

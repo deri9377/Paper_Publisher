@@ -28,9 +28,8 @@ const Post = () => {
     }, []);
 
     const sendComment = async () => {
-      let response = await client.post(PathConstants.SERVER + 'post/' + commentMessage.postId + '/comment', {
+      let response = await client.post(PathConstants.SERVER + '/post/' + commentMessage.postId + '/comment', {
         user: {
-          name: user,
           id: userId
         },
         message: commentMessage.message
@@ -66,7 +65,7 @@ const Post = () => {
                     <ListGroup>
                         {AllCollapse(post.id, post.comments)}
                     </ListGroup>
-                    <Form type="submit" onSubmit={sendComment}>
+                    <Form onSubmit={sendComment}>
                       <Form.Control type="text" placeholder="New Comment" name="message" value={FormData.message} onChange={changeHandler} />
                       <Button variant="primary" name="postId" value={post.id} type="submit" onClick={changeHandler}>Add Comment</Button>
                     </Form>

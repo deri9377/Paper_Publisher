@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import { setUser } from '../components/userSlice';
 import { useSelector, useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
+import PathConstants from '../routes/pathConstants.jsx';
 
 
 const Login = (props) => {
@@ -31,7 +32,7 @@ const Login = (props) => {
 
 
   const getUserByName = async (name) => {
-    let response = await client.get("http://localhost:8080/user/name/" + name);
+    let response = await client.get(PathConstants.SERVER + '/user/name/' + name);
     localStorage.setItem('userId', response.data.id)
 };
 
@@ -39,6 +40,7 @@ const Login = (props) => {
     localStorage.setItem('user', username);
     localStorage.setItem('loggedIn', true);
     getUserByName(username);
+    navigate('/profile')
   }
 
   const handleUserCreateSubmit = (e) => {
@@ -60,7 +62,7 @@ const Login = (props) => {
       className="mb-3"
     >
       <Tab eventKey="login" title="Login">
-        <Form>
+        <Form onSubmit={handleLoginSubmit}>
           <Form.Group className="mb-3" controlId="formBasicUser">
             <Form.Label>Username</Form.Label>
             <Form.Control name='username' 
@@ -79,7 +81,7 @@ const Login = (props) => {
               value={FormData.password} 
               onChange={(ev) => setPassword(ev.target.password)}/>
           </Form.Group>
-        <Button variant="primary" type="submit" onClick={handleLoginSubmit}>
+        <Button variant="primary" type="submit">
           Submit
         </Button>
     </Form>

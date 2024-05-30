@@ -55,7 +55,7 @@ public class UserControllerTest {
 
 
         mockMvc.perform(MockMvcRequestBuilders
-  			    .get("/users/12345")
+  			    .get("/user/12345")
   			    .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Bobby Flay"))
