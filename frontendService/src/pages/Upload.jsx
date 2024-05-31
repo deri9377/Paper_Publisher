@@ -45,7 +45,7 @@ const Upload = () => {
           const fileReader = new FileReader();
           fileReader.readAsDataURL(file);
           fileReader.onload = () => {
-            resolve(fileReader.result);
+            resolve(fileReader.result.split(',')[1]);
           };
           fileReader.onerror = (error) => {
             reject(error);

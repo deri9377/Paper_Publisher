@@ -60,7 +60,7 @@ const Post = () => {
                   </Accordion.Header>
                   <Accordion.Body>
                   <div style={{overflowWrap:"break-word", width:"1100px"}}>
-                    {post.paper.file}
+                    {atob(post.paper.file)}
                   </div>
                     <ListGroup>
                         {AllCollapse(post.id, post.comments)}
